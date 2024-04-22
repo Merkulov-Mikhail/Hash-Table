@@ -128,7 +128,7 @@ elem listDelete( List* lst, int index ){
 
 
 
-int listCTOR( List* lst, int size ){
+int listCTOR( List* lst, int size, void* created_buf ){
 
     if ( !lst )
         return 1;
@@ -136,10 +136,16 @@ int listCTOR( List* lst, int size ){
     lst->free = 1;
     lst->size = 0;
     lst->capt = size;
-
-    lst->next = ( int*  ) calloc( sizeof( int ),  lst->capt );
-    lst->prev = ( int*  ) calloc( sizeof( int ),  lst->capt );
-    lst->data = ( elem* ) calloc( sizeof( elem ), lst->capt );
+    if ( created_buf ) {
+        lst->next = ( int* )  ( created_buf );
+        lst->prev = ( int* )  ( created_buf +     sizeof( int ) * lst->capt );
+        lst->data = ( elem* ) ( created_buf + 2 * sizeof( int ) * lst->capt );
+    }
+    else {
+        lst->next = ( int*  ) calloc( sizeof( int ),  lst->capt );
+        lst->prev = ( int*  ) calloc( sizeof( int ),  lst->capt );
+        lst->data = ( elem* ) calloc( sizeof( elem ), lst->capt );
+    }
 
     // if one of the callocs didn't work, we return an error code
     if ( !lst->next ||

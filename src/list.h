@@ -33,7 +33,7 @@
         \param lst - pointer to List struct
         \return 1 if failed to allocate memory, 0 otherwise
     */
-    int listCTOR( List* lst, int size = LIST_SIZE );
+    int listCTOR( List* lst, int size = LIST_SIZE, void* created_buf = nullptr );
 
     /*
         \brief destroys struct List
