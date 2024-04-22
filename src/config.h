@@ -17,7 +17,7 @@
 #include "list.h"
 
 const uint64_t MOD = 100000000000031;
-const size_t TABLES_NUMBER = 100;
+const size_t TABLES_NUMBER = 101;
 
 
 uint64_t hash1( const char* string );
